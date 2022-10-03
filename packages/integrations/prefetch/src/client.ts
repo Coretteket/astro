@@ -11,10 +11,10 @@ function shouldPreload({ href }: { href: string }) {
 		const url = new URL(href);
 		return (
 			window.location.origin === url.origin &&
-			window.location.pathname !== url.hash &&
+			window.location.pathname !== url.pathname &&
 			!preloaded.has(href)
 		);
-	} catch {}
+	} catch { }
 
 	return false;
 }
@@ -54,7 +54,7 @@ async function preloadHref(link: HTMLAnchorElement) {
 		const styles = Array.from(html.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]'));
 
 		await Promise.all(styles.map((el) => fetch(el.href)));
-	} catch {}
+	} catch { }
 }
 
 export interface PrefetchOptions {
